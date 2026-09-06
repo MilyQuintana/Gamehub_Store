@@ -1,48 +1,107 @@
-/* =================================================================
-   INICIO.JS — Lógica exclusiva de index.html
-   Renderiza, con manipulación del DOM, la lista de categorías y los
-   productos destacados a partir de los arreglos de js/data.js.
-   No usa innerHTML con strings armados a mano: crea cada elemento
-   con createElement y lo conecta con appendChild, que es lo que
-   pide la pauta ("evitando listas escritas a mano en el HTML").
-   ================================================================= */
+
 
 document.addEventListener("DOMContentLoaded", () => {
   renderizarCategorias();
   renderizarDestacados();
 });
 
-/* -----------------------------------------------------------------
-   CATEGORÍAS
-   Cada categoría se pinta como un <li><a>...</a></li>. El href
-   apunta al catálogo con la categoría como parámetro de consulta:
-   catalogo.html?categoria=notebooks. catalogo.js lee ese parámetro
-   al cargar y deja el <select> de filtros ya con esa opción
-   seleccionada.
-   ----------------------------------------------------------------- */
+
 function renderizarCategorias() {
   const contenedor = document.getElementById("lista-categorias");
   if (!contenedor) return;
 
+  const carrusel = document.createElement("div");
+  carrusel.className = "categorias-carousel";
+
+  const viewport = document.createElement("div");
+  viewport.className = "categorias-carousel__viewport";
+
+  const track = document.createElement("ul");
+  track.className = "categorias-carousel__track";
+  track.id = "lista-categorias";
+
   CATEGORIAS.forEach((categoria) => {
-    const item = document.createElement("li");
+    const slide = document.createElement("li");
+    slide.className = "categorias-carousel__slide";
 
     const enlace = document.createElement("a");
     enlace.href = `catalogo.html?categoria=${encodeURIComponent(categoria.id)}`;
-    enlace.textContent = `${categoria.icono} ${categoria.nombre}`;
 
-    item.appendChild(enlace);
-    contenedor.appendChild(item);
+    const imagen = document.createElement("img");
+    imagen.className = "categorias-carousel__imagen";
+    imagen.src = obtenerImagenCategoria(categoria);
+    imagen.alt = categoria.nombre;
+    imagen.loading = "lazy";
+
+    const nombre = document.createElement("span");
+    nombre.className = "categorias-carousel__nombre";
+    nombre.textContent = categoria.nombre;
+
+    enlace.append(imagen, nombre);
+    slide.appendChild(enlace);
+    track.appendChild(slide);
   });
+
+  const btnPrev = crearBotonCarrusel("prev", "‹", "Categoría anterior");
+  const btnNext = crearBotonCarrusel("next", "›", "Categoría siguiente");
+
+  const dots = document.createElement("div");
+  dots.className = "categorias-carousel__dots";
+  CATEGORIAS.forEach((_, i) => {
+    const punto = document.createElement("button");
+    punto.type = "button";
+    punto.className = "categorias-carousel__dot";
+    punto.setAttribute("aria-label", `Ir a categoría ${i + 1}`);
+    dots.appendChild(punto);
+  });
+
+  viewport.appendChild(track);
+  carrusel.append(viewport, btnPrev, btnNext, dots);
+
+  contenedor.replaceWith(carrusel);
+  iniciarCarrusel(track, dots, CATEGORIAS.length);
 }
 
-/* -----------------------------------------------------------------
-   PRODUCTOS DESTACADOS
-   Filtra PRODUCTOS por "destacado: true" y limita a 4 tarjetas para
-   no saturar la portada. Cada tarjeta completa es un <a> (no lleva
-   botones adentro), así que no hay riesgo de anidar enlaces: un
-   solo clic en cualquier parte de la tarjeta lleva al detalle.
-   ----------------------------------------------------------------- */
+// Usa la imagen del primer producto real de esa categoría; si no hay, cae al placeholder de CATEGORIAS
+function obtenerImagenCategoria(categoria) {
+  const producto = PRODUCTOS.find((p) => p.categoria === categoria.id);
+  return producto ? producto.imagen : categoria.imagen;
+}
+
+function crearBotonCarrusel(tipo, texto, etiqueta) {
+  const boton = document.createElement("button");
+  boton.type = "button";
+  boton.className = `categorias-carousel__btn categorias-carousel__btn--${tipo}`;
+  boton.setAttribute("aria-label", etiqueta);
+  boton.textContent = texto;
+  return boton;
+}
+
+function iniciarCarrusel(track, dots, total) {
+  let actual = 0;
+  const puntos = Array.from(dots.children);
+  const carrusel = track.closest(".categorias-carousel");
+
+  function irA(indice) {
+    actual = (indice + total) % total;
+    track.style.transform = `translateX(-${actual * 100}%)`;
+    puntos.forEach((p, i) => p.classList.toggle("activo", i === actual));
+  }
+
+  puntos.forEach((p, i) => p.addEventListener("click", () => irA(i)));
+  carrusel.querySelector(".categorias-carousel__btn--prev").addEventListener("click", () => irA(actual - 1));
+  carrusel.querySelector(".categorias-carousel__btn--next").addEventListener("click", () => irA(actual + 1));
+
+  let auto = setInterval(() => irA(actual + 1), 4000);
+  carrusel.addEventListener("mouseenter", () => clearInterval(auto));
+  carrusel.addEventListener("mouseleave", () => {
+    auto = setInterval(() => irA(actual + 1), 4000);
+  });
+
+  irA(0);
+}
+
+
 function renderizarDestacados() {
   const contenedor = document.getElementById("lista-destacados");
   if (!contenedor) return;
@@ -54,13 +113,7 @@ function renderizarDestacados() {
   });
 }
 
-/* -----------------------------------------------------------------
-   crearTarjetaProducto(producto)
-   Función compartida: la reutilizará también js/catalogo.js, así
-   que vive aquí solo temporalmente — cuando armemos catalogo.js la
-   movemos a un archivo común (por ejemplo js/tarjetas.js) para no
-   duplicar código entre páginas.
-   ----------------------------------------------------------------- */
+
 function crearTarjetaProducto(producto) {
   const tarjeta = document.createElement("a");
   tarjeta.className = "tarjeta-producto";
@@ -97,10 +150,7 @@ function crearTarjetaProducto(producto) {
   return tarjeta;
 }
 
-/* -----------------------------------------------------------------
-   formatearCLP(monto)
-   Convierte un número a formato de precio chileno: $1.090.000
-   ----------------------------------------------------------------- */
+
 function formatearCLP(monto) {
   return monto.toLocaleString("es-CL", { style: "currency", currency: "CLP", maximumFractionDigits: 0 });
 }
