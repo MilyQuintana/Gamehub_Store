@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameHub Store - Checkout</title>
+  <link rel="stylesheet" href="/Styles/styles.css">
+</head>
+<body>
+ 
+  <header class="cabecera">
+    <div class="cabecera__contenedor contenedor">
+      <a href="index.html" class="cabecera__logo">Game<span>Hub</span> Store</a>
+      <nav class="nav-principal" aria-label="Navegación principal">
+        <ul class="nav-principal__lista">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+          <li><a href="checkout.html" aria-current="page">Checkout</a></li>
+          <li><a href="ordenes.html">Mis órdenes</a></li>
+        </ul>
+      </nav>
+      <a href="carrito.html" class="carrito-boton" aria-label="Ver carrito de compras">
+        🛒 <span id="carrito-contador" class="carrito-boton__contador">0</span>
+      </a>
+    </div>
+  </header>
+ 
+  <main id="contenido-principal">
+    <section class="seccion" aria-labelledby="checkout-titulo">
+      <div class="contenedor checkout__layout">
+ 
+
+        <div class="checkout__formulario">
+          <h1 id="checkout-titulo">Finalizar compra</h1>
+ 
+          <form id="form-checkout" class="formulario" novalidate>
+ 
+            <h2>Datos de despacho</h2>
+ 
+            <div class="campo">
+              <label for="checkout-nombre">Nombre completo</label>
+              <input type="text" id="checkout-nombre" name="nombre" autocomplete="name" required aria-describedby="checkout-nombre-error">
+              <span id="checkout-nombre-error" class="error" role="alert"></span>
+            </div>
+ 
+            <div class="campo">
+              <label for="checkout-correo">Correo electrónico</label>
+              <input type="email" id="checkout-correo" name="correo" autocomplete="email" required aria-describedby="checkout-correo-error">
+              <span id="checkout-correo-error" class="error" role="alert"></span>
+            </div>
+ 
+            <div class="campo">
+              <label for="checkout-telefono">Teléfono</label>
+              <input type="tel" id="checkout-telefono" name="telefono" autocomplete="tel" placeholder="+56 9 1234 5678" inputmode="numeric" required aria-describedby="checkout-telefono-ayuda checkout-telefono-error">
+              <small id="checkout-telefono-ayuda" class="ayuda">Solo números, incluye el código de país.</small>
+              <span id="checkout-telefono-error" class="error" role="alert"></span>
+            </div>
+ 
+            <div class="campo">
+              <label for="checkout-region">Región</label>
+              <select id="checkout-region" name="region" autocomplete="address-level1" required aria-describedby="checkout-region-error">
+                <option value="">Selecciona una región</option>
+                <option value="metropolitana">Metropolitana de Santiago</option>
+                <option value="valparaiso">Valparaíso</option>
+                <option value="biobio">Biobío</option>
+                <option value="araucania">La Araucanía</option>
+              </select>
+              <span id="checkout-region-error" class="error" role="alert"></span>
+            </div>
+ 
+            <div class="campo">
+              <label for="checkout-comuna">Comuna</label>
+              <input type="text" id="checkout-comuna" name="comuna" autocomplete="address-level2" required aria-describedby="checkout-comuna-error">
+              <span id="checkout-comuna-error" class="error" role="alert"></span>
+            </div>
+ 
+            <div class="campo">
+              <label for="checkout-direccion">Dirección</label>
+              <input type="text" id="checkout-direccion" name="direccion" autocomplete="street-address" required aria-describedby="checkout-direccion-error">
+              <span id="checkout-direccion-error" class="error" role="alert"></span>
+            </div>
+ 
+            
+            <h2>Método de pago</h2>
+            <fieldset class="campo">
+              <legend class="visualmente-oculto">Selecciona un método de pago</legend>
+ 
+              <label class="opcion-radio">
+                <input type="radio" name="metodoPago" value="tarjeta-credito" checked>
+                Tarjeta de crédito (simulado)
+              </label>
+              <label class="opcion-radio">
+                <input type="radio" name="metodoPago" value="tarjeta-debito">
+                Tarjeta de débito (simulado)
+              </label>
+              <label class="opcion-radio">
+                <input type="radio" name="metodoPago" value="transferencia">
+                Transferencia (simulado)
+              </label>
+            </fieldset>
+ 
+            <button type="submit" class="boton boton-primario">Confirmar compra</button>
+          </form>
+        </div>
+        <aside class="checkout__resumen" aria-labelledby="checkout-resumen-titulo">
+          <h2 id="checkout-resumen-titulo">Resumen de la orden</h2>
+          <ul id="checkout-lineas-resumen" class="checkout__lineas-resumen">
+            <!-- Generado dinámicamente por js/checkout.js -->
+          </ul>
+          <dl class="resumen-totales">
+            <div class="resumen-totales__fila">
+              <dt>Subtotal</dt>
+              <dd id="checkout-subtotal">$0</dd>
+            </div>
+            <div class="resumen-totales__fila">
+              <dt>Descuento</dt>
+              <dd id="checkout-descuento">-$0</dd>
+            </div>
+            <div class="resumen-totales__fila resumen-totales__fila--total">
+              <dt>Total</dt>
+              <dd id="checkout-total">$0</dd>
+            </div>
+          </dl>
+ 
+          <div id="checkout-confirmacion" class="checkout-confirmacion" hidden aria-live="polite">
+            <p>¡Compra confirmada!</p>
+            <p>Número de orden: <strong id="checkout-numero-orden"></strong></p>
+          </div>
+        </aside>
+ 
+      </div>
+    </section>
+  </main>
+ 
+  <footer class="pie-de-pagina">
+    <div class="contenedor pie-de-pagina__contenido">
+      <div>
+        <p class="pie-de-pagina__marca">Game<span>Hub</span> Store</p>
+        <p>Tienda gamer en línea. Proyecto académico - Desarrollo FullStack II.</p>
+      </div>
+      <nav aria-label="Enlaces del pie de página">
+        <ul class="pie-de-pagina__lista">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+        </ul>
+      </nav>
+      <p class="pie-de-pagina__copy">© 2026 GameHub Store. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+ 
+  <script src="js/Data.js"></script>
+  <script src="js/carrito-storage.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/validaciones.js"></script>
+</body>
+</html>
