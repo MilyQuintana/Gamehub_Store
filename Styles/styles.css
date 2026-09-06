@@ -1,4 +1,6 @@
-
+/* =====================================================================
+   1. VARIABLES Y RESET BASE
+   ===================================================================== */
 :root {
 
   --color-fondo: #120E1A;
@@ -8,7 +10,7 @@
   --color-texto: #F3EFFA;
   --color-error: #FF7A7A;
 
- 
+
   --color-texto-sobre-primario: #FFFFFF;
   --color-texto-secundario: #B8AFCB;
   --color-borde: #3A3153;
@@ -16,7 +18,7 @@
 
   --fuente-base: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  
+
   --espacio-xs: 0.5rem;
   --espacio-sm: 1rem;
   --espacio-md: 1.5rem;
@@ -79,7 +81,9 @@ h1, h2, h3 {
 }
 
 
-
+/* =====================================================================
+   2. LAYOUT / CONTENEDORES
+   ===================================================================== */
 .contenedor {
   width: 100%;
   max-width: var(--ancho-maximo);
@@ -96,6 +100,9 @@ h1, h2, h3 {
 }
 
 
+/* =====================================================================
+   3. BOTONES
+   ===================================================================== */
 .boton {
   display: inline-block;
   border: none;
@@ -136,6 +143,9 @@ h1, h2, h3 {
 }
 
 
+/* =====================================================================
+   4. FORMULARIOS
+   ===================================================================== */
 .formulario {
   display: flex;
   flex-direction: column;
@@ -180,8 +190,7 @@ h1, h2, h3 {
   border-color: var(--color-acento);
 }
 
-/* Estado de error: nunca depende solo del color. El texto del
-   mensaje y el borde rojo aparecen juntos (JS agrega ambos). */
+
 .campo input.campo-invalido,
 .campo select.campo-invalido,
 .campo textarea.campo-invalido {
@@ -218,9 +227,9 @@ fieldset.campo {
 }
 
 
-/* -----------------------------------------------------------------
-   4. CABECERA Y NAVEGACIÓN
-   ----------------------------------------------------------------- */
+/* =====================================================================
+   5. CABECERA Y NAVEGACIÓN
+   ===================================================================== */
 .cabecera {
   background: var(--color-superficie);
   border-bottom: 1px solid var(--color-borde);
@@ -290,9 +299,9 @@ fieldset.campo {
 }
 
 
-/* -----------------------------------------------------------------
-   5. PIE DE PÁGINA
-   ----------------------------------------------------------------- */
+/* =====================================================================
+   6. PIE DE PÁGINA
+   ===================================================================== */
 .pie-de-pagina {
   background: var(--color-superficie);
   border-top: 1px solid var(--color-borde);
@@ -335,10 +344,12 @@ fieldset.campo {
 }
 
 
-
+/* =====================================================================
+   7. TARJETAS DE PRODUCTO 
+   ===================================================================== */
 .tarjetas-grilla {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: var(--espacio-md);
 }
 
@@ -346,16 +357,18 @@ fieldset.campo {
   background: var(--color-superficie);
   border: 1px solid var(--color-borde);
   border-radius: var(--radio-borde);
+
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .tarjeta-producto__imagen {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
   width: 100%;
   background: var(--color-fondo);
+  max-height: 400px;
 }
 
 .tarjeta-producto__cuerpo {
@@ -392,31 +405,88 @@ fieldset.campo {
 }
 
 
-/* -----------------------------------------------------------------
-   7. ESTILOS ESPECÍFICOS DE CADA VISTA
-   ----------------------------------------------------------------- */
+/* =====================================================================
+   8. CARRUSEL DE CATEGORÍAS (Inicio)
+   ===================================================================== */
+.categorias-carousel {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+}
 
-/* --- Inicio: banner ------------------------------------------- */
-.banner {
-  background: linear-gradient(135deg, var(--color-superficie), var(--color-fondo));
-  border-bottom: 1px solid var(--color-borde);
-  padding-block: var(--espacio-xl);
+.categorias-carousel__viewport {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.categorias-carousel__track {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.45s ease-in-out;
+}
+
+.categorias-carousel__slide {
+  flex: 0 0 100%;
   text-align: center;
 }
 
-.banner__contenido h1 {
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  margin-bottom: var(--espacio-sm);
+.categorias-carousel__slide a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
-.banner__contenido p {
-  color: var(--color-texto-secundario);
-  max-width: 640px;
-  margin-inline: auto;
-  margin-bottom: var(--espacio-md);
+.categorias-carousel__imagen {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  display: block;
 }
 
-/* --- Inicio: categorías ------------------------------------------ */
+.categorias-carousel__nombre {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.categorias-carousel__btn {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 2;
+}
+.categorias-carousel__btn--prev { left: 8px; }
+.categorias-carousel__btn--next { right: 8px; }
+
+.categorias-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.categorias-carousel__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: #ccc;
+  cursor: pointer;
+  padding: 0;
+}
+.categorias-carousel__dot.activo { background: #444; }
+
 .categorias__grilla {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -442,14 +512,51 @@ fieldset.campo {
   text-decoration: none;
 }
 
-/* --- Inicio: video -------------------------------------------- */
+
+/* =====================================================================
+   9. VIDEO (Inicio)
+   ===================================================================== */
 .video-producto video {
   border-radius: var(--radio-borde);
   border: 1px solid var(--color-borde);
   margin-top: var(--espacio-sm);
 }
 
-/* --- Inicio: boletín -------------------------------------------- */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 16 / 9;
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =====================================================================
+   10. BANNER Y BOLETÍN (Inicio)
+   ===================================================================== */
+.banner {
+  background: linear-gradient(135deg, var(--color-superficie), var(--color-fondo));
+  border-bottom: 1px solid var(--color-borde);
+  padding-block: var(--espacio-xl);
+  text-align: center;
+}
+
+.banner__contenido h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: var(--espacio-sm);
+}
+
+.banner__contenido p {
+  color: var(--color-texto-secundario);
+  max-width: 640px;
+  margin-inline: auto;
+  margin-bottom: var(--espacio-md);
+}
+
 .boletin {
   background: var(--color-superficie);
   border-radius: var(--radio-borde);
@@ -464,7 +571,10 @@ fieldset.campo {
   justify-content: center;
 }
 
-/* --- Catálogo: layout de filtros + resultados ------------------ */
+
+/* =====================================================================
+   11. CATÁLOGO
+   ===================================================================== */
 .catalogo__layout {
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -498,7 +608,10 @@ fieldset.campo {
   margin-top: var(--espacio-lg);
 }
 
-/* --- Detalle de producto ---------------------------------------- */
+
+/* =====================================================================
+   12. DETALLE DE PRODUCTO
+   ===================================================================== */
 .detalle-producto {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -576,7 +689,10 @@ fieldset.campo {
   padding: var(--espacio-sm);
 }
 
-/* --- Carrito ------------------------------------------------------ */
+
+/* =====================================================================
+   13. CARRITO
+   ===================================================================== */
 .carrito__layout {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -646,7 +762,10 @@ fieldset.campo {
   color: var(--color-acento);
 }
 
-/* --- Checkout ------------------------------------------------------ */
+
+/* =====================================================================
+   14. CHECKOUT
+   ===================================================================== */
 .checkout__layout {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -682,7 +801,10 @@ fieldset.campo {
   text-align: center;
 }
 
-/* --- Mis órdenes ---------------------------------------------------- */
+
+/* =====================================================================
+   15. MIS ÓRDENES
+   ===================================================================== */
 .ordenes__layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -713,7 +835,9 @@ fieldset.campo {
 }
 
 
-
+/* =====================================================================
+   16. RESPONSIVE / MEDIA QUERIES
+   ===================================================================== */
 @media (max-width: 900px) {
   .catalogo__layout,
   .carrito__layout,
