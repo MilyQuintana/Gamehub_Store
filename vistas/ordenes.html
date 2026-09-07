@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameHub Store - Órdenes</title>
+  <link rel="stylesheet" href="/Styles/styles.css">
+</head>
+<body>
+
+  <!--Cabecera y navegación--->!
+  <header class="cabecera">
+    <div class="cabecera__contenedor contenedor">
+      <a href="index.html" class="cabecera__logo">Game<span>Hub</span> Store</a>
+      <nav class="nav-principal" aria-label="Navegación principal">
+        <ul class="nav-principal__lista">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="ordenes.html" aria-current="page">Mis órdenes</a></li>
+        </ul>
+      </nav>
+      <a href="carrito.html" class="carrito-boton" aria-label="Ver carrito de compras">
+        🛒 <span id="carrito-contador" class="carrito-boton__contador">0</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+    <section class="seccion" aria-labelledby="ordenes-titulo">
+      <div class="contenedor ordenes__layout">
+
+       
+        <div class="ordenes__listado">
+          <h1 id="ordenes-titulo">Mis órdenes</h1>
+
+          <div id="ordenes-vacio" class="carrito-vacio" hidden>
+            <p>Todavía no tienes órdenes registradas.</p>
+            <a href="catalogo.html" class="boton boton-primario">Ir al catálogo</a>
+          </div>
+
+          <table id="tabla-ordenes" class="tabla-carrito">
+            <caption class="visualmente-oculto">Listado de órdenes del cliente</caption>
+            <thead>
+              <tr>
+                <th scope="col">N° de orden</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Total</th>
+                <th scope="col"><span class="visualmente-oculto">Detalle</span></th>
+              </tr>
+            </thead>
+            <tbody id="ordenes-filas">
+             
+            </tbody>
+          </table>
+        </div>
+
+    
+        <section id="orden-detalle" class="ordenes__detalle" aria-labelledby="orden-detalle-titulo" hidden>
+          <h2 id="orden-detalle-titulo">Detalle de la orden</h2>
+
+          <p><strong>Estado del pago:</strong> <span id="orden-detalle-pago"></span></p>
+          <p><strong>Seguimiento del despacho:</strong> <span id="orden-detalle-despacho"></span></p>
+
+          <ul id="orden-detalle-productos" class="checkout__lineas-resumen">
+                </ul>
+
+          <div class="ordenes__acciones">
+            <button id="btn-escribir-resena" class="boton boton-secundario" type="button">Escribir reseña</button>
+            <button id="btn-solicitar-garantia" class="boton boton-secundario" type="button">Solicitar garantía</button>
+          </div>
+
+          <form id="form-garantia" class="formulario" novalidate hidden>
+            <div class="campo">
+              <label for="garantia-motivo">Motivo de la garantía</label>
+              <textarea id="garantia-motivo" name="motivo" rows="3" required aria-describedby="garantia-motivo-error"></textarea>
+              <span id="garantia-motivo-error" class="error" role="alert"></span>
+            </div>
+            <button type="submit" class="boton boton-primario">Enviar solicitud</button>
+          </form>
+        </section>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie-de-pagina">
+    <div class="contenedor pie-de-pagina__contenido">
+      <div>
+            <p class="pie-de-pagina__marca">Game<span>Hub</span> Store</p>
+        <p>Tienda gamer en línea. Proyecto académico - Desarrollo FullStack II.</p>
+      </div>
+      <p class="pie-de-pagina__copy">© 2026 GameHub Store. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/Data.js"></script>
+  <script src="js/carrito_storage.js"></script>
+  <script src="/js/ordenes.js"></script>
+  <script src="js/validaciones.js"></script>
+</body>
+</html>
