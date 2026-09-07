@@ -1,4 +1,3 @@
-# Gamehub_Store
 GAMEHUB STORE - FRONTEND(EP1)
 
 Integrantes :
