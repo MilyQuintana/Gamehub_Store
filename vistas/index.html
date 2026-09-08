@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub Store - Inicio</title>
+    <meta name=" description" content="GameHub Store, tienda gamer en linea: notebooks, tarjetas graficas, consolas y más.">
+    <link rel="stylesheet" href="/Styles/style.css">
+</head>
+<body>
+    <header class="cabecera">
+        <div class="cabecera contenedor contenedor">
+            <a href="index.html" class="logo">Game<span>Hub</span>Store</a>
+
+        <nav class = "nav-principal" aria-label="Navegaciónrincipal">
+        <ul class="nav-principal__lista">
+            <li><a href="Index.html" aria-current="page">Inicio</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="carrito.html" >Carrito</a></li>
+            <li><a href="checkout.html" >checkout</a></li>
+            <li><a href="ordenes.html">Ordenes</a></li>
+        </ul>
+        </nav>
+        <a href="carrito.html" class="carrito-boton" aria-label="Ver carrito de compras">🛒
+            <span id="carrito-contador" class="carrito-boton_contador">0</span>   
+        </a>
+        </div>
+    </header>
+    <main id="contenido-principal">
+
+        <section class=" banner" arial-labelledby="banner-titulo">
+            <div class="banner__contenido contenedor">
+                <h1 id="banner-titulo" class="banner__titulo">GameHub Store</h1>
+                <p class="banner__texto">Tu tienda gamer en línea: notebooks, tarjetas gráficas, consolas y más.</p>
+                <a href="catalogo.html" class="banner__boton">Ver catálogo</a>
+            </div>
+        </section>
+
+        <section class="seccion categorias" arial-labelledby="Categorias-titulo">
+            <div class="contenedor">
+                <h2 id="categorias-titulo">Categorías</h2>
+                <ul id="lista-categorias" class="tarjetas_grilla">    
+                </ul>
+            </div>
+        </section>
+
+        <section class="seccion destacados" arial-labelledby="destacados-titulo">
+            <div class="contenedor">
+                <h2 id="destacados-titulo">Productos destacados</h2>
+                <ul id="lista-destacados" class="destacados_grilla">
+                </ul>
+            </div>
+        </section>
+
+        <section class="seccion video" aria-labelledby="video-titulo">
+            <div class="contenedor">
+                <h2 id="video-titulo">Producto Destacado</h2>
+                <p>Mira en detalle nuestra pantalla, nuestro producto más vendido</p>
+
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@jccomputers/video/7679526164934806804" data-video-id="7679526164934806804" style="max-width: 605px;min-width: 325px;">
+                <section></section>
+                </blockquote>
+                <script async src="https://www.tiktok.com/embed.js"></script>
+            </div>
+        </section>
+
+        <section class=" sección boletin" arial-labelleby="boletin-titulo">
+            <div class="contenedor boletin__contenido">
+                <h2 id="boletin-titulo">Boletín de noticias</h2>
+                <p>Recibe Ofertas exclusivas y novedades</p>
+                <form id=" form-boletin" class="formulario formulario--en-linea" novalidate>
+                    <div class="campo">
+                        <label for="email">Correo electrónico</label>
+                        <input tupe=" email"
+                        id="email"
+                        name="correo"
+                        autoComplete="email"
+                        placeholder="tuemail@dominio.com"
+                        aria-describedby="boletin-correo-ayuda boletin-correo-error"
+                        required>
+                        <small id="boletin-correo-ayuda" class="ayuda">Usaremos tu corro solo para enviar ofertas</small>
+                        <span id="boletin-correo-error" class="error" role="alert"></span>
+                    </div>
+                    <button type="submit" class="boton boton-primario">Suscribirse</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+    <footer class="pie-de-pagina">
+        <div class="contenedor pie-de-pagina__contenido">
+        <div>
+        <p class="pie-de-pagina__marca">GameHub<span>Store</span></p>
+        <p>Tienda gamer en línea</p>  
+     </div>
+     <nav aria-label="Enlaces del pie de página">
+        <ul class="pie-de-pagina__lista">
+            <li><a href="Index.html">Inicio</a></li>
+            <li><a href="Catalogo.html">Catálogo</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+        </ul>
+     </nav>
+     <p class="pie-de-pagina__copy">@ 2026 GameHub Store. Todos los derechos reservados.</p>
+    </div>
+    </footer>
+    <script src="../js/Data.js"></script>
+    <script src="../js/Inicio.js"></script>
+</body>
+
+</html>
