@@ -14,8 +14,9 @@ GameHub Store es una tienda gamer en línea. Este repositorio contiene la capa d
 
 INSTRUCCIONES DE EJECUCIÓN:
 1.- Clonar o descargar el repositorio.
-2.- Hacer doble clic en index.html(o abrirlo con el navegador: Archivo > abrir Archivo)
-3.- Navega por el sitio usando el menú superior
+2.- Abrir la carpeta vistas 
+3.-Hacer doble clic en index.html(o abrirlo con el navegador: Archivo > abrir Archivo)
+4.- Navega por el sitio usando el menú superior
 
 
 ESTRUCTURA DE CARPETAS:
